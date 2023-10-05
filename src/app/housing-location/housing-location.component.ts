@@ -8,13 +8,13 @@ import { Housinglocation } from '../housinglocation';
   imports: [CommonModule],
   template: `
    <section class="listing">
-    <img class="listing-photo" [src]="Housinglocation.photo" alt="tekst">
-    <h2 class="listing-heading">{{ Housinglocation.name }}</h2>
-    <p class="listing-location">{{ Housinglocation.city }}, {{ Housinglocation.state }}</p>
+    <img class="listing-photo" [src]="HousinglocationList.photo" alt="tekst">
+    <h2 class="listing-heading">{{ HousinglocationList.name }}</h2>
+    <p class="listing-location">{{ HousinglocationList.city }}, {{ HousinglocationList.state }}</p>
    </section>
   `,
   styleUrls: ['./housing-location.component.css']
 })
 export class HousingLocationComponent {
-  @Input() Housinglocation!: Housinglocation
+  @Input() HousinglocationList!: Housinglocation
 }

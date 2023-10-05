@@ -1,17 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HousingLocationComponent } from '../housing-location/housing-location.component';
 import { Housinglocation } from '../housinglocation';
-import { ProductComponent } from '../product/product.component';
-import { Product } from '../product';
+import { HousingService } from '../housing.service';
+
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     CommonModule,
-    HousingLocationComponent,
-    ProductComponent
+    HousingLocationComponent
   ],
   template: `
   <!-- Komponent home -->
@@ -22,36 +22,19 @@ import { Product } from '../product';
       </form>
     </section>
     <section class="results">
-      <app-housing-location [Housinglocation]="Housinglocation"></app-housing-location>
+      <app-housing-location *ngFor="let Housinglocation of housingLocationList" [HousinglocationList]="Housinglocation"></app-housing-location>
     </section>
-    <section class="listing-products">
-      <app-product [Product]="Product"></app-product>
-    </section>
+    <section class="listing-products"></section>
   `,
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
 
-  // readonly baseUrl = 'https://res.cloudinary.com/dj484tw6k/f_auto,q_auto,c_pad,b_white,w_505,h_505/v1593174240/8546.png';
+ housingLocationList: Housinglocation[] = [];
+ housingService: HousingService = inject(HousingService);
 
-  Housinglocation: Housinglocation = {
-    id: 999,
-    name: 'Test',
-    city: 'Gdansk',
-    state: 'PL',
-    photo: 'https://res.cloudinary.com/dj484tw6k/f_auto,q_auto,c_pad,b_white,w_505,h_505/v1593174240/8546.png',
-    availableUnit: 50,
-    wifi: true,
-    laundry: false
-  }
-
-  Product: Product = {
-    id: 1,
-    product_name: "czekolada",
-    price: 50,
-    qty: 250,
-    photo: 'https://res.cloudinary.com/dj484tw6k/f_auto,q_auto,c_pad,b_white,w_505,h_505/v1593174240/8546.png',
-    available: true
-
-  }
+ constructor() {
+  this.housingLocationList = this.housingService.getAllHousingLocation();
+ }
+  
 }
